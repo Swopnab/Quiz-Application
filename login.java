@@ -1,8 +1,12 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.util.jar.Attributes;
 
-public class login extends JFrame{
+public class login extends JFrame implements ActionListener {
+
+    JButton rules, name;
     login(){
         getContentPane().setBackground(Color.decode("#001b29"));
         setLayout(null);
@@ -22,22 +26,40 @@ public class login extends JFrame{
         heading.setForeground(Color.white);
         add(heading);
 
-        JLabel name = new JLabel("PLAY");
-        name.setBounds(240, 640, 300, 30);
+        name = new JButton("PLAY");
+        name.setBounds(240, 640, 300, 50);
         name.setFont(new Font("SansSerif", Font.BOLD,28));
+        name.setBackground(Color.decode("#001b29"));
         name.setForeground(Color.white);
+        name.setOpaque(true);
+        name.setBorderPainted(false);
+        name.setFocusPainted(false);
+        name.addActionListener(this);
         add(name);
 
-        JLabel rules = new JLabel("HOW TO PLAY");
-        rules.setBounds(600, 640, 300, 30);
+        rules = new JButton("HOW TO PLAY");
+        rules.setBounds(600, 640, 300, 50);
         rules.setFont(new Font("SansSerif", Font.BOLD,28));
+        rules.setBackground(Color.decode("#001b29"));
         rules.setForeground(Color.white);
+        rules.setOpaque(true);
+        rules.setBorderPainted(false);
+        rules.setFocusPainted(false);
+        rules.addActionListener(this);
         add(rules);
 
         setVisible(true);
         setSize(1024,720);
         setLocation(225, 100);
 
+    }
+
+    public void actionPerformed(ActionEvent ae){
+        if (ae.getSource() == rules)(
+
+        ) elsw if (ae.getSource() == Name){
+
+        }
     }
 
     public static void main(String[] args){
