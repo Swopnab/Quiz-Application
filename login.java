@@ -9,24 +9,30 @@ public class login extends JFrame{
 
         ImageIcon i1= new ImageIcon("Quiz-icon.png");
         JLabel image = new JLabel(i1);
-        /*
-        int imageX = (getWidth() - i1.getIconWidth()) / 2;
-        int imageY = (getHeight() - i1.getIconHeight()) / 2;
-        image.setBounds(imageX, imageY, i1.getIconWidth(), i1.getIconHeight());
-        */
+        image.setBounds(220, 55, 600, 600);
         add(image);
 
         if (i1.getIconWidth() == -1 || i1.getIconHeight() == -1) {
             System.out.println("Image not found!");
         };
 
-        JLabel heading = new JLabel("WHO WANTS TO BE A BROKILLIONAIRE");
-        int headingX = (getWidth() - 300) / 2;
-        heading.setBounds(headingX, 50, 300, 45);
-        heading.setBounds(200, 100, 300, 45);
-        heading.setFont(new Font("SansSerif", Font.BOLD,20));
+        JLabel heading = new JLabel("QUIZ MANIA");
+        heading.setBounds(320, 20, 700, 45);
+        heading.setFont(new Font("SansSerif", Font.BOLD,64));
         heading.setForeground(Color.white);
         add(heading);
+
+        JLabel name = new JLabel("PLAY");
+        name.setBounds(240, 640, 300, 30);
+        name.setFont(new Font("SansSerif", Font.BOLD,28));
+        name.setForeground(Color.white);
+        add(name);
+
+        JLabel rules = new JLabel("HOW TO PLAY");
+        rules.setBounds(600, 640, 300, 30);
+        rules.setFont(new Font("SansSerif", Font.BOLD,28));
+        rules.setForeground(Color.white);
+        add(rules);
 
         setVisible(true);
         setSize(1024,720);
