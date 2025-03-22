@@ -27,9 +27,9 @@ public class login extends JFrame implements ActionListener {
         add(heading);
 
         name = new JButton("PLAY");
-        name.setBounds(240, 640, 300, 50);
+        name.setBounds(130, 620, 250, 50);
         name.setFont(new Font("SansSerif", Font.BOLD,28));
-        name.setBackground(Color.decode("#001b29"));
+        name.setBackground(Color.decode("#1d96dd"));
         name.setForeground(Color.white);
         name.setOpaque(true);
         name.setBorderPainted(false);
@@ -38,9 +38,9 @@ public class login extends JFrame implements ActionListener {
         add(name);
 
         rules = new JButton("HOW TO PLAY");
-        rules.setBounds(600, 640, 300, 50);
+        rules.setBounds(680, 620, 250, 50);
         rules.setFont(new Font("SansSerif", Font.BOLD,28));
-        rules.setBackground(Color.decode("#001b29"));
+        rules.setBackground(Color.decode("#1d96dd"));
         rules.setForeground(Color.white);
         rules.setOpaque(true);
         rules.setBorderPainted(false);
@@ -54,11 +54,12 @@ public class login extends JFrame implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent ae){
-        if (ae.getSource() == rules)(
-
-        ) elsw if (ae.getSource() == Name){
-
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == rules) {
+            setVisible(false);
+            new rules();
+        } else if (ae.getSource() == name) {
+            setVisible(false);
         }
     }
 
