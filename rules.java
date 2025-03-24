@@ -63,19 +63,15 @@ public class rules extends JFrame implements ActionListener{
         setSize(800, 720);
         setLocation(350, 100);
         setVisible(true);
-
-        revalidate();
-        repaint();
-
     }
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == start) {
             setVisible(false);
-            new QuizGame(); 
-        } else if (ae.getSource() == back) {
+            new Quiz();
+        } else {
             setVisible(false);
-            new login(); 
+            new login();
         }
     }
 

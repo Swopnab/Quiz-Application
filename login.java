@@ -2,7 +2,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.jar.Attributes;
 
 public class login extends JFrame implements ActionListener {
 

@@ -1,15 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.nio.Buffer;
 
-public class quiz extends JFrame{
+public class Quiz extends JFrame{
 
     String questions[][] = new String[25][5];
     String answers[][] = new String[25][5];
 
 
 
-    quiz() {
+    Quiz() {
         setBounds(50, 0, 1400, 900);
         getContentPane().setBackground(Color.white);
         setLayout(null);
@@ -181,7 +180,7 @@ public class quiz extends JFrame{
     }
 
     public static void main(String[] args) {
-        new quiz();
+        new Quiz();
     }
     
     
