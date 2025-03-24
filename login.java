@@ -58,9 +58,11 @@ public class login extends JFrame implements ActionListener {
             setVisible(false);
             new rules();
         } else if (ae.getSource() == name) {
-            setVisible(false);
+            setVisible(false);  
+            new Quiz(); 
         }
     }
+    
 
     public static void main(String[] args){
         new login();

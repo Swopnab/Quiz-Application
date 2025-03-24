@@ -2,338 +2,244 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class Quiz extends JFrame implements ActionListener { 
 
-    String questions[][] = new String[25][1];
-    String answers[][] = new String[25][5];
-    String useranswers[][] = new String[25][1];
+    String questions[][] = new String[25][5]; 
+    String answers[] = new String[25]; 
+    String useranswers[] = new String[25]; 
 
     JLabel qno, question;
     JRadioButton opt1, opt2, opt3, opt4;
-
     ButtonGroup groupoptions;
     JButton next, submit;
 
-    public static int timer = 15;
-    public static int ans_given = 0;
-    public static int score = 0;
-    public static int count = 0;
-
-    String name;
-
+    int timer = 10, ans_given = 0, score = 0, count = 0;
+    Timer quizTimer;
 
     Quiz() {
+
+        ImageIcon i2= new ImageIcon("DE_QuizTemplate.jpg");
+        JLabel image = new JLabel(i2);
+        image.setBounds(0, 0, 400, 1000);
+        add(image);
+
         setBounds(50, 0, 1400, 900);
         getContentPane().setBackground(Color.black);
         setLayout(null);
 
-        ImageIcon i1= new ImageIcon("DE_QuizTemplate.jpg");
-        Image img = i1.getImage().getScaledInstance(580, 900, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(img);
-        JLabel image = new JLabel(scaledIcon);
-        image.setBounds(0, 0, 350, 900);
-        add(image);
-        setVisible(true);
-
-
         qno = new JLabel();
-        qno.setBounds(750, 200, 500, 50);
+        qno.setBounds(650, 200, 50, 50);
         qno.setFont(new Font("SansSerif", Font.BOLD,24));
+        qno.setForeground(Color.white);
         add(qno);
 
         question = new JLabel();
-        question.setBounds(800, 200, 500, 50);
-        question.setFont(new Font("SansSerif", Font.BOLD,36));
+        question.setBounds(700, 200, 900, 50);
+        question.setFont(new Font("SansSerif", Font.BOLD,24));
+        question.setForeground(Color.white);
         add(question);
 
-                // Questions and answer options
-                questions[0][0] = "In which year was Atletico Madrid founded?";
-                questions[0][1] = "1903";
-                questions[0][2] = "1910";
-                questions[0][3] = "1921";
-                questions[0][4] = "1936";
-        
-                questions[1][0] = "What is Atletico Madrid's home stadium?";
-                questions[1][1] = "Camp Nou";
-                questions[1][2] = "Santiago Bernabeu";
-                questions[1][3] = "Wanda Metropolitano";
-                questions[1][4] = "Mestalla";
-        
-                questions[2][0] = "Who is Atletico Madrid's all-time top scorer?";
-                questions[2][1] = "Fernando Torres";
-                questions[2][2] = "Antoine Griezmann";
-                questions[2][3] = "Luis Aragones";
-                questions[2][4] = "Diego Forlan";
-        
-                questions[3][0] = "How many La Liga titles has Atletico Madrid won (as of 2024)?";
-                questions[3][1] = "8";
-                questions[3][2] = "10";
-                questions[3][3] = "11";
-                questions[3][4] = "12";
-        
-                questions[4][0] = "Who was Atletico Madrid's manager when they won La Liga in 2021?";
-                questions[4][1] = "Diego Simeone";
-                questions[4][2] = "Luis Enrique";
-                questions[4][3] = "Zinedine Zidane";
-                questions[4][4] = "Carlo Ancelotti";
-        
-                questions[5][0] = "What are Atletico Madrid's traditional home colors?";
-                questions[5][1] = "Red and black stripes";
-                questions[5][2] = "Blue and black";
-                questions[5][3] = "Yellow and red";
-                questions[5][4] = "Black and black";
-        
-                questions[6][0] = "Which team did Atletico Madrid defeat in the 2018 UEFA Europa League final?";
-                questions[6][1] = "Liverpool";
-                questions[6][2] = "Arsenal";
-                questions[6][3] = "Marseille";
-                questions[6][4] = "Chelsea";
-        
-                questions[7][0] = "Which city is Atletico Madrid based in?";
-                questions[7][1] = "Barcelona";
-                questions[7][2] = "Madrid";
-                questions[7][3] = "Seville";
-                questions[7][4] = "Valencia";
-        
-                questions[8][0] = "Who did Atletico Madrid face in the 2014 UEFA Champions League final?";
-                questions[8][1] = "Barcelona";
-                questions[8][2] = "Real Madrid";
-                questions[8][3] = "Bayern Munich";
-                questions[8][4] = "Chelsea";
-        
-                questions[9][0] = "Which Atletico Madrid player won the 2018 FIFA World Cup with France?";
-                questions[9][1] = "Saul Niguez";
-                questions[9][2] = "Koke";
-                questions[9][3] = "Antoine Griezmann";
-                questions[9][4] = "Joao Felix";
-        
-                questions[10][0] = "Who is known as one of Atletico Madrid's most legendary goalkeepers?";
-                questions[10][1] = "David de Gea";
-                questions[10][2] = "Thibaut Courtois";
-                questions[10][3] = "Jan Oblak";
-                questions[10][4] = "Iker Casillas";
-        
-                questions[11][0] = "Which club is considered Atletico Madrid's biggest rival?";
-                questions[11][1] = "Sevilla";
-                questions[11][2] = "Barcelona";
-                questions[11][3] = "Real Madrid";
-                questions[11][4] = "Valencia";
-        
-                questions[12][0] = "What is Atletico Madrid's nickname?";
-                questions[12][1] = "Los Blancos";
-                questions[12][2] = "Los Rojiblancos";
-                questions[12][3] = "Los Azulgranas";
-                questions[12][4] = "Los Colchoneros";
-        
-                questions[13][0] = "Which country is Atletico Madrid’s owner, Miguel Angel Gil Marin, from?";
-                questions[13][1] = "Argentina";
-                questions[13][2] = "Spain";
-                questions[13][3] = "Portugal";
-                questions[13][4] = "Italy";
-        
-                questions[14][0] = "Which club did Atletico Madrid defeat to win the 2010 UEFA Europa League final?";
-                questions[14][1] = "Fulham";
-                questions[14][2] = "Inter Milan";
-                questions[14][3] = "Borussia Dortmund";
-                questions[14][4] = "Manchester United";
-        
-                answers[0][0] = "1903";
-                answers[1][0] = "Wanda Metropolitano";
-                answers[2][0] = "Luis Aragones";
-                answers[3][0] = "11";
-                answers[4][0] = "Diego Simeone";
-                answers[5][0] = "Red and black stripes";
-                answers[6][0] = "Marseille";
-                answers[7][0] = "Madrid";
-                answers[8][0] = "Real Madrid";
-                answers[9][0] = "Antoine Griezmann";
-                answers[10][0] = "Jan Oblak";
-                answers[11][0] = "Real Madrid";
-                answers[12][0] = "Los Colchoneros";
-                answers[13][0] = "Spain";
-                answers[14][0] = "Fulham";
-
-
         opt1 = new JRadioButton();
-        opt1.setBounds(900, 300, 500, 80);
-        opt1.setBackground(Color.white);
-        opt1.setFont(new Font("Dialog", Font.PLAIN, 24));
-        add(opt1);
-
         opt2 = new JRadioButton();
-        opt2.setBounds(900, 400, 500, 80);
-        opt2.setBackground(Color.white);
-        opt2.setFont(new Font("Dialog", Font.PLAIN, 24));
-        add(opt2);
-
         opt3 = new JRadioButton();
-        opt3.setBounds(900, 500, 500, 80);
-        opt3.setBackground(Color.white);
-        opt3.setFont(new Font("Dialog", Font.PLAIN, 24));
-        add(opt3);
-
         opt4 = new JRadioButton();
-        opt4.setBounds(900, 600, 500, 80);
-        opt4.setBackground(Color.white);
-        opt4.setFont(new Font("Dialog", Font.PLAIN, 24));
-        add(opt4);
 
+        JRadioButton[] options = {opt1, opt2, opt3, opt4};
+        int y = 300;
+        for (JRadioButton opt : options) {
+            opt.setBounds(800, y, 500, 50);
+            opt.setFont(new Font("SansSerif", Font.BOLD,24));
+            opt.setBackground(Color.black);
+            opt.setForeground(Color.white);
+            add(opt);
+            y += 80;
+        }
 
-        ButtonGroup groupoptions = new ButtonGroup();
+        groupoptions = new ButtonGroup();
         groupoptions.add(opt1);
         groupoptions.add(opt2);
         groupoptions.add(opt3);
         groupoptions.add(opt4);
 
         next = new JButton("Next");
-        next.setBounds(900, 500, 500, 50);
-        next.setFont(new Font("Dialog", Font.PLAIN, 24));
+        next.setBounds(700, 700, 150, 50);
+        next.setFont(new Font("SansSerif", Font.BOLD,24));
         next.setBackground(new Color(30, 144, 255));
-        next.setForeground(Color.black);
         next.addActionListener(this);
         add(next);
 
         submit = new JButton("Submit");
-        submit.setBounds(900, 500, 500, 50);
-        submit.setFont(new Font("Dialog", Font.PLAIN, 24));
+        submit.setBounds(1100, 700, 150, 50);
+        submit.setFont(new Font("SansSerif", Font.BOLD,24));
         submit.setBackground(new Color(30, 144, 255));
-        submit.setForeground(Color.black);
-        submit.addActionListener(this);
         submit.setEnabled(false);
+        submit.addActionListener(this);
         add(submit);
 
+        loadQuestions();
         start(count);
 
-        setVisible(true);
+        quizTimer = new Timer(1000, e -> updateTimer());
+        quizTimer.start();
 
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == next) {
-            repaint();
-            opt1.setEnabled(true);
-            opt2.setEnabled(true);
-            opt3.setEnabled(true);
-            opt4.setEnabled(true);
-            
-            ans_given = 1;
-            if (groupoptions.getSelection() == null) {
-               useranswers[count][0] = "";
-            } else {
-                useranswers[count][0] = groupoptions.getSelection().getActionCommand();
-            }
-            
-            if (count == 8) {
+            processAnswer();
+            if (count == 14) {
                 next.setEnabled(false);
                 submit.setEnabled(true);
             }
-            
             count++;
             start(count);
         } else if (ae.getSource() == submit) {
-            ans_given = 1;
-            if (groupoptions.getSelection() == null) {
-                useranswers[count][0] = "";
-            } else {
-                useranswers[count][0] = groupoptions.getSelection().getActionCommand();
-            }
-
-            for (int i = 0; i < useranswers.length; i++) {
-                if (useranswers[i][0].equals(answers[i][1])) {
-                    score += 10;
-                } else {
-                    score += 0;
-                }
-            }
+            processAnswer();
+            calculateScore();
             setVisible(false);
-            new Score(name, score);
+            JOptionPane.showMessageDialog(null, "Your Score: " + score);
         }
     }
-    
-    public void paint(Graphics g) {
-        super.paint(g);
-        
-        String time = "Time left - " + timer + " seconds"; // 15
-        g.setColor(Color.RED);
-        g.setFont(new Font("Dialog", Font.PLAIN, 30));
-        
-        if (timer > 0) { 
-            g.drawString(time, 800 , 100);
+
+    public void processAnswer() {
+        ans_given = 1;
+        if (groupoptions.getSelection() == null) {
+            useranswers[count] = "";
         } else {
-            g.drawString("Times up!!", 800 , 100);
+            useranswers[count] = groupoptions.getSelection().getActionCommand();
         }
-        
-        timer--; // 14
-        
-        try {
-            Thread.sleep(1000);
-            repaint();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        if (ans_given == 1) {
-            ans_given = 0;
-            timer = 15;
-        } else if (timer < 0) {
-            timer = 15;
-            opt1.setEnabled(true);
-            opt2.setEnabled(true);
-            opt3.setEnabled(true);
-            opt4.setEnabled(true);
-            
-            if (count == 8) {
+        timer = 15;
+    }
+
+    public void updateTimer() {
+        if (timer > 0) {
+            timer--;
+        } else {
+            processAnswer();
+            if (count == 14) {
                 next.setEnabled(false);
                 submit.setEnabled(true);
-            }
-            if (count == 9) { // submit button
-                if (groupoptions.getSelection() == null) {
-                   useranswers[count][0] = "";
-                } else {
-                    useranswers[count][0] = groupoptions.getSelection().getActionCommand();
-                }
-                
-                for (int i = 0; i < useranswers.length; i++) {
-                    if (useranswers[i][0].equals(answers[i][1])) {
-                        score += 10;
-                    } else {
-                        score += 0;
-                    }
-                }
-                setVisible(false);
-                new Score(name, score);
-            } else { // next button
-                if (groupoptions.getSelection() == null) {
-                   useranswers[count][0] = "";
-                } else {
-                    useranswers[count][0] = groupoptions.getSelection().getActionCommand();
-                }
-                count++; // 0 // 1
+            } else {
+                count++;
                 start(count);
             }
         }
-        
+        repaint();
     }
-    
+
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.setColor(Color.RED);
+        g.setFont(new Font("SansSerif", Font.BOLD,30));
+        g.drawString("Time left: " + timer + "s", 800, 100);
+    }
+
+    public void calculateScore() {
+        for (int i = 0; i < 15; i++) {
+            if (useranswers[i].equals(answers[i])) {
+                score += 10;
+            }
+        }
+    }
+
     public void start(int count) {
-        qno.setText("" + (count + 1) + ". ");
+        qno.setText((count + 1) + ".");
         question.setText(questions[count][0]);
+
         opt1.setText(questions[count][1]);
         opt1.setActionCommand(questions[count][1]);
-        
+
         opt2.setText(questions[count][2]);
         opt2.setActionCommand(questions[count][2]);
-        
+
         opt3.setText(questions[count][3]);
         opt3.setActionCommand(questions[count][3]);
-        
+
         opt4.setText(questions[count][4]);
         opt4.setActionCommand(questions[count][4]);
-        
+
         groupoptions.clearSelection();
     }
-    
+
+    public void loadQuestions() {
+        questions[0] = new String[]{"Who is the main protagonist in 'Attack on Titan'?", "Levi Ackerman", "Eren Yeager", "Mikasa Ackerman", "Armin Arlert"};
+        answers[0] = "Eren Yeager";
+        
+        questions[1] = new String[]{"Which club won the 2010 FIFA World Cup?", "Brazil", "Germany", "Spain", "Argentina"};
+        answers[1] = "Spain";
+        
+        questions[2] = new String[]{"What is the name of the sword used by Tanjiro Kamado in 'Demon Slayer'?", "Nichirin Blade", "Excalibur", "Yoru", "Tenseiga"};
+        answers[2] = "Nichirin Blade";
+        
+        questions[3] = new String[]{"Which country won the 2014 FIFA World Cup?", "Argentina", "Germany", "Brazil", "Spain"};
+        answers[3] = "Germany";
+        
+        questions[4] = new String[]{"Who is known as the 'King of the Pirates' in 'One Piece'?", "Luffy", "Ace", "Shanks", "Gol D. Roger"};
+        answers[4] = "Gol D. Roger";
+        
+        questions[5] = new String[]{"Which club did Atletico Madrid defeat to win the 2018 UEFA Europa League final?", "Liverpool", "Arsenal", "Marseille", "Chelsea"};
+        answers[5] = "Marseille";
+        
+        questions[6] = new String[]{"Who scored the winning goal in the 2014 FIFA World Cup final?", "Lionel Messi", "Miroslav Klose", "Andres Iniesta", "Mario Gotze"};
+        answers[6] = "Mario Gotze";
+        
+        questions[7] = new String[]{"What is the name of the fictional country in 'Attack on Titan'?", "Paradise Island", "Wakanda", "Konoha", "Hogwarts"};
+        answers[7] = "Paradise Island";
+        
+        questions[8] = new String[]{"Who is the main antagonist in 'Naruto Shippuden'?", "Madara Uchiha", "Orochimaru", "Sasuke Uchiha", "Itachi Uchiha"};
+        answers[8] = "Madara Uchiha";
+        
+        questions[9] = new String[]{"Who is considered the greatest soccer player of all time by many fans?", "Pele", "Cristiano Ronaldo", "Lionel Messi", "Diego Maradona"};
+        answers[9] = "Lionel Messi";
+        
+        questions[10] = new String[]{"Who is Atletico Madrid's all-time top scorer?", "Fernando Torres", "Antoine Griezmann", "Luis Aragones", "Diego Forlan"};
+        answers[10] = "Luis Aragones";
+        
+        questions[11] = new String[]{"Which anime features a battle between Goku and Frieza?", "Dragon Ball Z", "Naruto", "Bleach", "One Piece"};
+        answers[11] = "Dragon Ball Z";
+        
+        questions[12] = new String[]{"Which Atletico Madrid player won the 2018 FIFA World Cup with France?", "Saul Niguez", "Koke", "Antoine Griezmann", "Joao Felix"};
+        answers[12] = "Antoine Griezmann";
+        
+        questions[13] = new String[]{"Which anime features a character named Edward Elric?", "Fullmetal Alchemist", "Naruto", "Bleach", "Attack on Titan"};
+        answers[13] = "Fullmetal Alchemist";
+        
+        questions[14] = new String[]{"Which Atletico Madrid player is known for his skillful dribbling and flair?", "Joao Felix", "Diego Costa", "Koke", "Antoine Griezmann"};
+        answers[14] = "Joao Felix";
+        
+        questions[15] = new String[]{"Which club won the UEFA Champions League in 2020?", "Atletico Madrid", "Real Madrid", "Bayern Munich", "Liverpool"};
+        answers[15] = "Bayern Munich";
+        
+        questions[16] = new String[]{"Which team did Atletico Madrid face in the 2016 UEFA Champions League final?", "Barcelona", "Real Madrid", "Bayern Munich", "Juventus"};
+        answers[16] = "Real Madrid";
+        
+        questions[17] = new String[]{"Which anime is known for the character 'Monkey D. Luffy'?", "One Piece", "Dragon Ball Z", "Naruto", "Bleach"};
+        answers[17] = "One Piece";
+        
+        questions[18] = new String[]{"Who is the manager of Atletico Madrid as of 2024?", "Carlo Ancelotti", "Luis Enrique", "Diego Simeone", "Zinedine Zidane"};
+        answers[18] = "Diego Simeone";
+        
+        questions[19] = new String[]{"Which anime features the character 'Mikasa Ackerman'?", "Attack on Titan", "Naruto", "Bleach", "Dragon Ball Z"};
+        answers[19] = "Attack on Titan";
+        
+        questions[20] = new String[]{"Who is Atletico Madrid's top scorer in the 2023-2024 La Liga season?", "Antoine Griezmann", "Joao Felix", "Diego Costa", "Alvaro Morata"};
+        answers[20] = "Antoine Griezmann";
+        
+        questions[21] = new String[]{"Who won the 2018 Ballon d'Or?", "Cristiano Ronaldo", "Lionel Messi", "Luka Modric", "Kylian Mbappe"};
+        answers[21] = "Luka Modric";
+        
+        questions[22] = new String[]{"Which anime features 'Titan Shifters'?", "Attack on Titan", "Naruto", "Bleach", "One Piece"};
+        answers[22] = "Attack on Titan";
+        
+        questions[23] = new String[]{"Which club did Atletico Madrid face in the 2014 UEFA Champions League final?", "Barcelona", "Real Madrid", "Bayern Munich", "Chelsea"};
+        answers[23] = "Real Madrid";
+        
+        questions[24] = new String[]{"Who is known as 'The Boss' at Atletico Madrid?", "Diego Simeone", "Fernando Torres", "Antoine Griezmann", "Koke"};
+        answers[24] = "Diego Simeone";
+        
+    }
+
     public static void main(String[] args) {
         new Quiz();
     }
